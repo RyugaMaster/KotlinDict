@@ -11,25 +11,25 @@ public fun main(args: Array<String>) {
     File("dict.txt").createNewFile()
     File("dict.txt").forEachLine(){
         val c = it.split('-')
-        dict!!.put(c[0],c[1])
+        dict!!.put(c[0].trim(),c[1].trim())
     }
     var a = readLine()
     while (!a.equals("end")){ when(a?.split(" ")?.get(0)){
         "del" ->{
             val pair = a.drop(4).split("-")
-            if (pair.size == 2) dict!!.remove(pair[0],pair[1])
+            if (pair.size == 2) dict!!.remove(pair[0].trim(),pair[1].trim())
             else println("В строке должно быть 1 символ \"-\" разделяющий ключ и значение")
 
         }
         "delk" ->{
             val single = a.drop(5)
-            if (!single.contains('-')) dict!!.remove("single")
+            if (!single.contains('-')) dict!!.remove(single.trim())
             else println("В строке не должно быть символа \"-\"")
 
         }
         "delv" ->{
             val single = a.drop(5)
-            val suit = dict!!.filterValues {it == single }
+            val suit = dict!!.filterValues {it == single.trim() }
             suit.forEach {
                 println("${it.key} Удалить этот ключ, привязанный к искомому значению?<Y/N>")
                 var ch = readLine()
